@@ -1,0 +1,23 @@
+{
+  "name": "jeasyui-sample-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali01ch/JEasyUI-sample-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ali01ch/JEasyUI-sample-project/issues"
+  },
+  "homepage": "https://github.com/ali01ch/JEasyUI-sample-project#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "jquery-easyui": "^1.5.21"
+  }
+}
