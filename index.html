@@ -1,53 +1,122 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Link to Bootstrap JavaScript bundle -->
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-    <script type="text/javascript" src="easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-rtl-1/easyui-rtl.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-rtl-1/easyui-rtl.js"></script>
+    
 </head>
-<body>
-    <div class="w-50 border border-2 mx-auto my-5 p-2" style="min-height: 300px;">
-        <div class="w-100 border border-1" style="min-height: 30px;">
-            <h3 class="text-center m-3">کاربران ثبت شده</h3>
-        </div>
-        <div class="w-100 border border-1" style="min-height: 30px;">
-            <button class="ms-2 my-2 btn btn-success">ایجاد کاربر جدید</button>
-            <button class="ms-2 my-2 btn btn-warning">ویرایش کاربر</button>
-            <button class="ms-2 my-2 btn btn-danger">حذف کاربر</button>
-        </div>
-        <div class="w-100 border border-1 overflow-auto" style="height: 300px;">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr class="border-dark border-1">
-                        <th class="col-1">#</th>
-                        <th class="col-1">نام</th>
-                        <th class="col-2">نام خانوادگی</th>
-                        <th class="col-1">سن</th>
-                        <th class="col-3">شماره تلفن همراه</th>
-                        <th class="col-4">ایمیل</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td>علی</td>
-                        <td>چنینی</td>
-                        <td>۲۴</td>
-                        <td>۰۹۰۱۷۷۳۰۸۰۴</td>
-                        <td>alichenini2019@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<body dir="rtl">
+    <table id="users" title="My Users" class="easyui-datagrid " style="width:700px;height:250px"url="get_users.php"toolbar="#toolbar" pagination="true"rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="firstname" width="50">نام</th>
+                <th field="lastname" width="50">نام خانوادگی</th>
+                <th field="age" width="50">سن</th>
+                <th field="phone" width="50">شماره موبایل</th>
+                <th field="email" width="50">ایمیل</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar" style="min-height: 30px;">
+        <a class="easyui-linkbutton ms-2 my-2" plain="true" iconCls="icon-add" onclick="newUser()">ایجاد کاربر جدید</a>
+        <a class="easyui-linkbutton ms-2 my-2" plain="true" iconCls="icon-edit" onclick="editUser()">ویرایش کاربر</a>
+        <a class="easyui-linkbutton ms-2 my-2" plain="true" iconCls="icon-remove" onclick="removeUser()">حذف کاربر</a>
     </div>
+    <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="entry-fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <h3>اطلاعات کاربر</h3>
+            <div style="margin-bottom:10px">
+                <input name="firstname" class="easyui-textbox" required="true" label="نام:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="lastname" class="easyui-textbox" required="true" label="نام خانوادگی:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="age" class="easyui-textbox" required="true" label="سن:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="phone" class="easyui-textbox" required="true" label="شماره موبایل:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="email" class="easyui-textbox" required="true" validType="email" label="ایمیل:" style="width:100%">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()" style="width:90px">ذخیره</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">لغو</a>
+    </div>
+    <script type="text/javascript">
+        var url;
+        function newUser(){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','کاربر جدید');
+            $('#entry-fm').form('clear');
+            url = 'save_user.php';
+        }
+        function editUser(){
+            var row = $('#users').datagrid('getSelected')
+            if(row){
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle','Edit User');
+                $('#dial-form').form('load' , row);
+                url = url = 'update_user.php?id='+row.id;;
+            }
+            
+        }
+        function saveUser(){
+            $('#entry-fm').form('submit',{
+                url: url,
+                iframe: false,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.errorMsg){
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close');        // close the dialog
+                        $('#users').datagrid('reload');    // reload the user data
+                    }
+                }
+            });
+        }
+        function destroyUser(){
+            var row = $('#users').datagrid('getSelected');
+            if (row){
+                $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+                    if (r){
+                        $.post('destroy_user.php',{id:row.id},function(result){
+                            if (result.success){
+                                $('#users').datagrid('reload');    // reload the user data
+                            } else {
+                                $.messager.show({    // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        },'json');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
