@@ -17,7 +17,6 @@
   "homepage": "https://github.com/ali01ch/JEasyUI-sample-project#readme",
   "description": "",
   "dependencies": {
-    "bootstrap": "^5.3.7",
     "jquery-easyui": "^1.5.21"
   }
 }
